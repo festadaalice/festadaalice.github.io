@@ -5,7 +5,7 @@ window.FESTA = {
   api: 'https://script.google.com/macros/s/AKfycbzEimwRERDTfmCIuB9EQHz8Z1oPoWNdnz4IVIfM84otIF1kcfbTklf5RzaENAswVfUM/exec',
 
   inicio: '2027-01-09T12:00:00-03:00',
-  fim: '2027-01-09T17:00:00-03:00',         // PROVISÓRIO: horário de término ainda não decidido
+  fim: '2027-01-09T13:00:00-03:00',         // só para a agenda: evento de 1 hora como lembrete (a festa não tem horário de término)
   prazoConfirmacao: '2026-12-20',             // PROVISÓRIO: último dia para confirmar
 
   titulo: '1º aninho da Alice',
