@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>1º aninho da Alice</title>
+  <meta name="description" content="Sábado, 9 de janeiro, às 12:00. Confirme sua presença aqui.">
+  <meta name="theme-color" content="#FCF1F5">
+
+  <!-- Pré-visualização do link no WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="1º aninho da Alice">
+  <meta property="og:description" content="Sábado, 9 de janeiro, às 12:00. Confirme sua presença aqui.">
+  <meta property="og:url" content="https://festadaalice.github.io/">
+  <meta property="og:image" content="https://festadaalice.github.io/img/previa.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Convite do 1º aninho da Alice">
+  <link rel="icon" href="img/icone.png">
+  <link rel="apple-touch-icon" href="img/icone.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Nunito:ital,wght@0,400;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<!-- ===================== Convite (tela principal) ===================== -->
+<main id="convite" class="convite">
+
+  <div class="arte">
+    <img src="img/convite.jpg" width="900" height="1269"
+         alt="Convite do 1º aninho da Alice: sábado, 9 de janeiro, às 12:00, na Rua Vinícius de Morais, 15, Luxemburgo.">
+  </div>
+
+  <h1 class="titulo"><span class="titulo-linha">1º aninho da</span> <span class="titulo-nome">Alice</span></h1>
+
+  <!-- Antes de responder -->
+  <section id="status-aberto" class="status" aria-label="Confirmação de presença" tabindex="-1">
+    <p class="status-prazo" id="prazo"></p>
+    <button type="button" class="botao" data-acao="confirmar" id="botao-principal">Confirmar presença</button>
+  </section>
+
+  <!-- Depois de responder -->
+  <section id="status-respondido" class="status respondido" aria-label="Sua resposta" tabindex="-1" hidden>
+    <p class="respondido-titulo">Sua resposta</p>
+    <p class="respondido-grupo" id="respondido-grupo"></p>
+    <ul class="lista-respostas" id="respondido-lista"></ul>
+    <p class="respondido-data" id="respondido-data"></p>
+    <button type="button" class="botao" data-acao="editar" id="botao-editar">Editar resposta</button>
+    <button type="button" class="botao-texto" data-acao="confirmar">Responder por outra família</button>
+  </section>
+
+  <section class="relogio" aria-label="Contagem regressiva">
+    <svg class="relogio-icone" viewBox="0 0 120 140" aria-hidden="true">
+      <circle cx="60" cy="14" r="9" fill="none" stroke="#C9973E" stroke-width="5"/>
+      <rect x="52" y="20" width="16" height="12" rx="3" fill="#C9973E"/>
+      <circle cx="60" cy="84" r="50" fill="#E3B65A"/>
+      <circle cx="60" cy="84" r="42" fill="#FFFDF8" stroke="#C9973E" stroke-width="3"/>
+      <g stroke="#5A3A2A" stroke-width="3" stroke-linecap="round">
+        <line x1="60" y1="48" x2="60" y2="55"/><line x1="96" y1="84" x2="89" y2="84"/>
+        <line x1="60" y1="120" x2="60" y2="113"/><line x1="24" y1="84" x2="31" y2="84"/>
+      </g>
+      <g fill="#5A3A2A">
+        <circle cx="78" cy="53" r="2"/><circle cx="91" cy="66" r="2"/><circle cx="91" cy="102" r="2"/>
+        <circle cx="78" cy="115" r="2"/><circle cx="42" cy="115" r="2"/><circle cx="29" cy="102" r="2"/>
+        <circle cx="29" cy="66" r="2"/><circle cx="42" cy="53" r="2"/>
+      </g>
+      <line x1="60" y1="84" x2="60" y2="58" stroke="#5A3A2A" stroke-width="4" stroke-linecap="round"/>
+      <line x1="60" y1="84" x2="80" y2="96" stroke="#A8326A" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="60" cy="84" r="4" fill="#5A3A2A"/>
+    </svg>
+    <div>
+      <p class="faltam" id="faltam"></p>
+      <p class="frase">“Ai, ai! Vou chegar atrasado!”</p>
+      <p class="frase-autor">Coelho Branco</p>
+    </div>
+  </section>
+
+  <section class="detalhe" aria-labelledby="titulo-quando">
+    <h2 id="titulo-quando">Quando</h2>
+    <p class="detalhe-texto" id="quando"></p>
+    <a class="botao secundario" id="agenda" href="#" target="_blank" rel="noopener">Adicionar ao calendário</a>
+  </section>
+
+  <section class="detalhe" aria-labelledby="titulo-onde">
+    <h2 id="titulo-onde">Onde</h2>
+    <p class="detalhe-texto" id="onde"></p>
+    <div class="mapa" id="mapa" hidden></div>
+    <div class="botoes-mapa">
+      <a class="botao secundario" id="maps" href="#" target="_blank" rel="noopener">Google Maps</a>
+      <a class="botao secundario" id="waze" href="#" target="_blank" rel="noopener">Waze</a>
+    </div>
+  </section>
+
+  <footer class="rodape">
+    <svg class="naipes" viewBox="0 0 220 40" aria-hidden="true">
+      <path fill="#3F3A40" d="M20 6c-4 0-7 3-7 7 0 1 0 2 1 3-1-1-2-1-3-1-4 0-7 3-7 7s3 7 7 7c2 0 4-1 5-2l-2 7h8l-2-7c1 1 3 2 5 2 4 0 7-3 7-7s-3-7-7-7c-1 0-2 0-3 1 1-1 1-2 1-3 0-4-3-7-7-7z"/>
+      <path fill="#D64A5C" d="M75 34s-14-8-14-17c0-5 3-8 7-8 3 0 5 2 7 4 2-2 4-4 7-4 4 0 7 3 7 8 0 9-14 17-14 17z"/>
+      <path fill="#3F3A40" d="M130 5s-14 10-14 18c0 4 3 7 7 7 2 0 4-1 5-2l-2 7h8l-2-7c1 1 3 2 5 2 4 0 7-3 7-7 0-8-14-18-14-18z"/>
+      <path fill="#D64A5C" d="M185 4l12 16-12 16-12-16z"/>
+    </svg>
+    <p class="frase">“Aqui somos todos loucos.”</p>
+    <p class="frase-autor">Gato de Cheshire</p>
+    <p class="assinatura">Com carinho, Felipe, Teresa e Alice</p>
+  </footer>
+
+  <!-- Barra fixa: aparece quando o botão grande sai da tela -->
+  <div class="barra" id="barra" aria-hidden="true">
+    <button type="button" class="botao" id="barra-botao" tabindex="-1" data-acao="confirmar">Confirmar presença</button>
+  </div>
+</main>
+
+<!-- ===================== Confirmação (telas uma a uma) ===================== -->
+<div id="fluxo" class="fluxo" hidden>
+  <header class="fluxo-topo">
+    <button type="button" class="voltar" data-acao="voltar">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Voltar
+    </button>
+  </header>
+
+  <!-- Nome -->
+  <form id="tela-nome" class="tela" novalidate hidden>
+    <svg class="tela-enfeite" viewBox="0 0 220 40" aria-hidden="true">
+      <path fill="#3F3A40" d="M20 6c-4 0-7 3-7 7 0 1 0 2 1 3-1-1-2-1-3-1-4 0-7 3-7 7s3 7 7 7c2 0 4-1 5-2l-2 7h8l-2-7c1 1 3 2 5 2 4 0 7-3 7-7s-3-7-7-7c-1 0-2 0-3 1 1-1 1-2 1-3 0-4-3-7-7-7z"/>
+      <path fill="#D64A5C" d="M75 34s-14-8-14-17c0-5 3-8 7-8 3 0 5 2 7 4 2-2 4-4 7-4 4 0 7 3 7 8 0 9-14 17-14 17z"/>
+      <path fill="#3F3A40" d="M130 5s-14 10-14 18c0 4 3 7 7 7 2 0 4-1 5-2l-2 7h8l-2-7c1 1 3 2 5 2 4 0 7-3 7-7 0-8-14-18-14-18z"/>
+      <path fill="#D64A5C" d="M185 4l12 16-12 16-12-16z"/>
+    </svg>
+    <h2 class="tela-pergunta" tabindex="-1">Qual é o seu primeiro nome?</h2>
+    <label class="tela-dica" for="nome">Escreva só o primeiro nome. Vamos achar sua família na lista.</label>
+    <input id="nome" name="nome" type="text" autocomplete="given-name" autocapitalize="words"
+           enterkeyhint="search" spellcheck="false" placeholder="Exemplo: Maria">
+    <p class="erro" id="erro-nome" role="alert" hidden></p>
+    <button type="submit" class="botao">Continuar</button>
+  </form>
+
+  <!-- Nome repetido -->
+  <div id="tela-escolha" class="tela" hidden>
+    <h2 class="tela-pergunta" tabindex="-1">Qual é a sua família?</h2>
+    <p class="tela-dica">Tem mais de uma pessoa com esse nome na lista. Toque na sua família:</p>
+    <div id="lista-grupos" class="lista-grupos"></div>
+  </div>
+
+  <!-- Não encontrado -->
+  <div id="tela-nao-achou" class="tela centro" hidden>
+    <svg class="sorriso" viewBox="0 0 200 110" aria-hidden="true">
+      <ellipse cx="62" cy="30" rx="20" ry="13" fill="#F5E9A8" stroke="#8E6BB0" stroke-width="3"/>
+      <ellipse cx="62" cy="30" rx="4" ry="11" fill="#3F1A30"/>
+      <ellipse cx="138" cy="30" rx="20" ry="13" fill="#F5E9A8" stroke="#8E6BB0" stroke-width="3"/>
+      <ellipse cx="138" cy="30" rx="4" ry="11" fill="#3F1A30"/>
+      <path d="M18 58 Q100 128 182 58 Q100 92 18 58 Z" fill="#FFFFFF" stroke="#8E6BB0" stroke-width="4" stroke-linejoin="round"/>
+      <g stroke="#C9B3DA" stroke-width="2.5">
+        <line x1="45" y1="68" x2="46" y2="80"/><line x1="70" y1="74" x2="71" y2="90"/>
+        <line x1="100" y1="76" x2="100" y2="96"/><line x1="130" y1="74" x2="129" y2="90"/>
+        <line x1="155" y1="68" x2="154" y2="80"/>
+      </g>
+    </svg>
+    <h2 class="tela-pergunta" tabindex="-1">Não encontramos esse nome</h2>
+    <p class="tela-dica" id="texto-nao-achou"></p>
+    <p class="frase">“Quem sou eu, afinal? Ah, esse é o grande mistério!”</p>
+    <p class="frase-autor">Alice</p>
+    <button type="button" class="botao" data-acao="nome">Escrever o nome de novo</button>
+  </div>
+
+  <!-- Quem vai -->
+  <form id="tela-quem" class="tela" novalidate hidden>
+    <h2 class="tela-pergunta" tabindex="-1">Quem vai à festa?</h2>
+    <p class="grupo-titulo" id="grupo-titulo"></p>
+    <p class="tela-dica">Toque em “Vai” ou “Não vai” para cada pessoa.</p>
+    <div id="pessoas" class="pessoas"></div>
+    <p class="erro" id="erro-envio" role="alert" hidden></p>
+    <button type="submit" class="botao">Confirmar resposta</button>
+  </form>
+
+  <!-- Pronto -->
+  <div id="tela-pronto" class="tela" hidden>
+    <div class="pronto-topo">
+      <svg class="pronto-icone" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="30" fill="#1F6B45"/>
+        <path d="M18 33 L28 43 L47 22" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h2 class="tela-pergunta" tabindex="-1">Pronto! Recebemos sua resposta</h2>
+      <p class="grupo-titulo" id="pronto-grupo"></p>
+    </div>
+    <ul class="lista-respostas" id="pronto-lista"></ul>
+    <p class="pronto-recado" id="pronto-recado"></p>
+
+    <p class="tambem">Você também pode:</p>
+    <a class="acao" id="pronto-agenda" href="#" target="_blank" rel="noopener">
+      <span class="acao-icone" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+      <span class="acao-texto"><strong>Adicionar ao calendário</strong><span>Para o celular lembrar você da festa</span></span>
+    </a>
+    <a class="acao" id="pronto-maps" href="#" target="_blank" rel="noopener">
+      <span class="acao-icone" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="9.5" r="2.5" fill="currentColor"/></svg>
+      </span>
+      <span class="acao-texto"><strong>Ver o caminho no Google Maps</strong><span id="pronto-endereco"></span></span>
+    </a>
+    <a class="acao" id="pronto-waze" href="#" target="_blank" rel="noopener">
+      <span class="acao-icone" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M5 17l4-10 4 6 2-3 4 7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="acao-texto"><strong>Ver o caminho no Waze</strong><span>Abre o aplicativo Waze</span></span>
+    </a>
+
+    <button type="button" class="botao" data-acao="fechar">Voltar para o convite</button>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+# Só o site vai para o GitHub (repo público). Tudo o mais fica fora.
+/*
+!/index.html
+!/estilo.css
+!/app.js
+!/config.js
+!/festa-alice.ics
+!/img/
+!/.gitignore

@@ -1,0 +1,15 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//festa-alice//pt-BR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:festa-alice-2027@festadaalice.github.io
+DTSTAMP:20261030T111305Z
+DTSTART:20270109T150000Z
+DTEND:20270109T200000Z
+SUMMARY:1º aninho da Alice
+LOCATION:Rua Vinícius de Morais\, 15\, Luxemburgo\, Belo Horizonte\, MG
+DESCRIPTION:Confirme sua presença em https://festadaalice.github.io/
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,469 @@
+/* Convite de Alice no País das Maravilhas, pensado para celular:
+   arte no topo, tudo empilhado, confirmação em telas separadas uma a uma. */
+:root {
+  --papel: #FCF1F5;
+  --papel-escuro: #F7E3EC;
+  --branco: #FFFFFF;
+  --rosa-claro: #F6D3E0;
+  --rosa: #C04A79;          /* letra cursiva, puxada do rosa do convite com contraste 4,2:1 */
+  --rosa-forte: #A8326A;    /* botões: contraste alto com branco */
+  --ameixa: #3F1A30;        /* texto */
+  --ameixa-suave: #6B4459;
+  --verde: #1F6B45;
+  --cinza-nao: #5B4655;
+  --vermelho: #B3261E;
+  --borda: #D9B8C7;
+  --dourado: #C9973E;
+  --raio: 16px;
+  --largura: 480px;
+  --lado: max(18px, env(safe-area-inset-left, 0px));
+  --lado-d: max(18px, env(safe-area-inset-right, 0px));
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { font-size: 112.5%; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  color: var(--ameixa);
+  background-color: var(--papel);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cg fill='%23E9A5BF' opacity='.55'%3E%3Cpath d='M40 20l3 9 9 3-9 3-3 9-3-9-9-3 9-3z'/%3E%3Cpath d='M180 70l2 6 6 2-6 2-2 6-2-6-6-2 6-2z'/%3E%3Cpath d='M110 170l2.5 7.5 7.5 2.5-7.5 2.5-2.5 7.5-2.5-7.5-7.5-2.5 7.5-2.5z'/%3E%3Ccircle cx='210' cy='200' r='2'/%3E%3Ccircle cx='70' cy='120' r='1.6'/%3E%3Ccircle cx='150' cy='20' r='1.6'/%3E%3C/g%3E%3C/svg%3E");
+  font-family: "Nunito", "Segoe UI", Arial, sans-serif;
+  font-size: 1.12rem;
+  line-height: 1.5;
+}
+
+h1, h2, p, ul { margin: 0; }
+[hidden] { display: none !important; }
+
+/* ---------- Botões ---------- */
+.botao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 62px;
+  padding: 12px 18px;
+  font: inherit;
+  font-size: 1.22rem;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+  color: var(--branco);
+  background: var(--rosa-forte);
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(168, 50, 106, 0.25);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.botao:active { transform: translateY(1px); }
+.botao[disabled] { opacity: 0.65; cursor: progress; }
+
+.botao.secundario {
+  color: var(--rosa-forte);
+  background: var(--branco);
+  border: 3px solid var(--rosa-forte);
+  box-shadow: none;
+  font-size: 1.1rem;
+  min-height: 56px;
+}
+
+.botao-texto {
+  font: inherit;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--rosa-forte);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  background: none;
+  border: 0;
+  padding: 10px 4px;
+  min-height: 48px;
+  cursor: pointer;
+}
+
+.botao:focus-visible, .botao-texto:focus-visible, .voltar:focus-visible, .acao:focus-visible,
+.grupo-botao:focus-visible, .opcao:focus-within {
+  outline: 4px solid var(--ameixa);
+  outline-offset: 3px;
+}
+
+.frase {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--rosa-forte);
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+.frase-autor { font-size: 0.88rem; color: var(--ameixa-suave); margin-top: 2px; }
+
+/* ===================== Convite ===================== */
+.convite {
+  max-width: var(--largura);
+  margin: 0 auto;
+  padding-block: 14px 120px;
+  padding-left: var(--lado);
+  padding-right: var(--lado-d);
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.arte img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 5px solid var(--branco);
+  border-radius: 18px;
+  box-shadow: 0 16px 34px rgba(168, 50, 106, 0.18);
+}
+
+.titulo {
+  text-align: center;
+  font-weight: 400;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 10px;
+}
+.titulo-linha {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--rosa);
+}
+.titulo-nome {
+  font-family: "Great Vibes", cursive;
+  font-size: 3.3rem;
+  line-height: 1.1;
+  color: var(--rosa);
+}
+
+/* Status: antes e depois de responder */
+#status-aberto:focus, #status-respondido:focus { outline: none; }
+.status {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: -14px;
+}
+.status-prazo { text-align: center; font-size: 1.1rem; }
+.status-prazo strong { font-weight: 800; }
+
+.respondido {
+  background: var(--branco);
+  border: 3px solid var(--rosa-claro);
+  border-radius: 22px;
+  padding: 20px 18px 14px;
+  gap: 12px;
+}
+.respondido-titulo {
+  font-family: "Great Vibes", cursive;
+  font-size: 2.1rem;
+  line-height: 1;
+  color: var(--rosa);
+  text-align: center;
+}
+.respondido-grupo { font-size: 1.25rem; font-weight: 800; text-align: center; }
+.respondido-data { font-size: 0.95rem; color: var(--ameixa-suave); text-align: center; }
+.respondido .botao-texto { align-self: center; }
+
+.lista-respostas {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.lista-respostas li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.2rem;
+  background: var(--papel);
+  border-radius: 14px;
+  padding: 10px 14px;
+}
+.lista-respostas strong { font-weight: 800; }
+.marca {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--branco);
+}
+.marca svg { width: 16px; height: 16px; }
+.marca.vai { background: var(--verde); }
+.marca.nao { background: var(--cinza-nao); }
+
+/* Relógio */
+.relogio {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 0 4px;
+}
+.relogio-icone { width: 84px; height: auto; transform: rotate(-8deg); }
+.faltam { font-size: 1.2rem; margin-bottom: 6px; }
+.faltam strong { font-weight: 800; }
+
+/* Quando e onde */
+.detalhe { display: flex; flex-direction: column; gap: 10px; }
+.detalhe h2 {
+  font-family: "Great Vibes", cursive;
+  font-weight: 400;
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--rosa);
+}
+.detalhe-texto { font-size: 1.22rem; font-weight: 700; }
+
+.mapa {
+  border: 5px solid var(--branco);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(168, 50, 106, 0.12);
+  aspect-ratio: 4 / 3;
+  max-width: 100%;
+  background: var(--papel-escuro);
+}
+.mapa iframe { display: block; width: 100%; height: 100%; border: 0; }
+
+.botoes-mapa { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* Rodapé */
+.rodape { text-align: center; margin-top: 10px; }
+.naipes { width: 170px; height: auto; margin-bottom: 12px; }
+.assinatura { margin-top: 16px; font-size: 1.02rem; }
+
+/* Barra fixa */
+.barra {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  padding: 12px var(--lado-d) calc(12px + env(safe-area-inset-bottom, 0px)) var(--lado);
+  background: rgba(252, 241, 245, 0.94);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-top: 2px solid var(--rosa-claro);
+  transform: translateY(110%);
+  transition: transform 0.25s ease-out;
+}
+.barra.visivel { transform: none; }
+.barra .botao { max-width: calc(var(--largura) - 36px); margin: 0 auto; }
+
+/* ===================== Confirmação ===================== */
+.fluxo {
+  min-height: 100vh;
+  min-height: 100dvh;
+  max-width: var(--largura);
+  margin: 0 auto;
+  padding-left: var(--lado);
+  padding-right: var(--lado-d);
+  padding-block: 0 40px;
+}
+
+.fluxo-topo {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  padding-top: calc(10px + env(safe-area-inset-top, 0px));
+  padding-bottom: 10px;
+  background: var(--papel);
+  border-bottom: 2px solid var(--rosa-claro);
+}
+.voltar { justify-self: start; }
+.voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 48px;
+  padding: 6px 14px 6px 8px;
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--rosa-forte);
+  background: var(--branco);
+  border: 2px solid var(--rosa-claro);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.voltar svg { width: 22px; height: 22px; }
+
+.tela {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 28px;
+}
+.tela.centro { text-align: center; align-items: center; }
+.tela.entrando { animation: entrar 0.3s ease-out; }
+@keyframes entrar { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: none; } }
+
+.tela-enfeite { width: 150px; height: auto; align-self: center; margin-bottom: 4px; }
+.tela-pergunta {
+  font-size: 1.65rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+.tela-pergunta:focus { outline: none; }
+.tela-dica { font-size: 1.1rem; }
+
+input[type="text"] {
+  width: 100%;
+  min-height: 66px;
+  font: inherit;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--ameixa);
+  background: var(--branco);
+  border: 3px solid var(--borda);
+  border-radius: 16px;
+  padding: 0 18px;
+}
+input[type="text"]::placeholder { color: #9C8592; font-weight: 400; }
+input[type="text"]:focus { outline: none; border-color: var(--rosa-forte); box-shadow: 0 0 0 4px var(--rosa-claro); }
+
+.erro {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--vermelho);
+  background: #FDECEC;
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+
+/* Escolha da família */
+.lista-grupos { display: flex; flex-direction: column; gap: 12px; }
+.grupo-botao {
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: var(--ameixa);
+  background: var(--branco);
+  border: 3px solid var(--borda);
+  border-radius: 18px;
+  padding: 14px 18px;
+  min-height: 76px;
+  cursor: pointer;
+}
+.grupo-botao strong { display: block; font-size: 1.25rem; font-weight: 800; color: var(--rosa-forte); }
+.grupo-botao span { font-size: 1.05rem; }
+
+/* Não encontrado */
+.sorriso { width: 170px; height: auto; }
+
+/* Quem vai */
+.grupo-titulo {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--rosa-forte);
+}
+.pessoas { display: flex; flex-direction: column; gap: 12px; }
+.pessoa {
+  margin: 0;
+  border: 3px solid var(--rosa-claro);
+  border-radius: 18px;
+  padding: 10px 12px 14px;
+  background: var(--branco);
+}
+.pessoa legend {
+  float: left;
+  width: 100%;
+  font-size: 1.35rem;
+  font-weight: 800;
+  padding: 2px 4px 10px;
+}
+.pessoa.faltando { border-color: var(--vermelho); background: #FDECEC; }
+
+.opcoes { clear: both; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.opcao { position: relative; display: block; border-radius: 14px; }
+.opcao input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.opcao span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 58px;
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: var(--ameixa);
+  background: var(--papel);
+  border: 3px solid var(--borda);
+  border-radius: 14px;
+  padding: 6px 8px;
+}
+.opcao span::before {
+  content: "";
+  width: 22px; height: 22px;
+  border: 3px solid currentColor;
+  border-radius: 50%;
+  flex: none;
+}
+.opcao.vai input:checked + span { color: var(--branco); background: var(--verde); border-color: var(--verde); }
+.opcao.nao input:checked + span { color: var(--branco); background: var(--cinza-nao); border-color: var(--cinza-nao); }
+.opcao input:checked + span::before {
+  border-color: var(--branco);
+  background: var(--branco) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='%233F1A30' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 18px no-repeat;
+}
+
+/* Pronto */
+.pronto-topo { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+.pronto-icone { width: 72px; height: 72px; }
+.pronto-recado { font-size: 1.15rem; font-weight: 700; text-align: center; }
+.tambem {
+  font-family: "Great Vibes", cursive;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--rosa);
+  margin-top: 10px;
+}
+.acao {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 72px;
+  padding: 12px 16px;
+  color: var(--ameixa);
+  text-decoration: none;
+  background: var(--branco);
+  border: 3px solid var(--rosa-claro);
+  border-radius: 18px;
+}
+.acao-icone {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--rosa-forte);
+  background: var(--papel);
+}
+.acao-icone svg { width: 24px; height: 24px; }
+.acao-texto { display: flex; flex-direction: column; min-width: 0; }
+.acao-texto strong { font-size: 1.12rem; font-weight: 800; color: var(--rosa-forte); }
+.acao-texto span { font-size: 0.98rem; color: var(--ameixa-suave); }
+#tela-pronto .botao { margin-top: 12px; }
+
+/* Celular baixinho: menos enfeite para o teclado não cobrir o botão */
+@media (max-height: 640px) {
+  .tela-enfeite { display: none; }
+  .tela { padding-top: 18px; gap: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tela.entrando { animation: none; }
+  .barra { transition: none; }
+}
