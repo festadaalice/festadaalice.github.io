@@ -391,8 +391,8 @@
         }
         nomeDigitado = nome;
         if (r.grupos.length === 0) {
-          $('texto-nao-achou').textContent = 'Confira se o nome “' + nome + '” está escrito certinho e tente de novo. ' +
-            'Se ainda assim não encontrar, fale com ' + F.contato + '.';
+          $('texto-nao-achou').textContent = 'Confira se “' + nome + '” é o seu primeiro nome, do jeito que está no documento, ' +
+            'sem apelido, e tente de novo. Se ainda assim não encontrar, fale com ' + F.contato + '.';
           return irPara('nao-achou');
         }
         if (r.grupos.length === 1) return abrirGrupo(r.grupos[0]);

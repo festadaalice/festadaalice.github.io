@@ -131,9 +131,10 @@
       <path fill="#D64A5C" d="M185 4l12 16-12 16-12-16z"/>
     </svg>
     <h2 class="tela-pergunta" tabindex="-1">Qual é o seu primeiro nome?</h2>
-    <label class="tela-dica" for="nome">Escreva só o primeiro nome. Vamos achar sua família na lista.</label>
+    <label class="tela-dica" for="nome">Escreva só o seu primeiro nome, do jeito que está no documento. <strong>Não use apelido.</strong></label>
+    <p class="tela-dica" id="exemplo-nome">Exemplo: escreva Mariana, e não Mari.</p>
     <input id="nome" name="nome" type="text" autocomplete="given-name" autocapitalize="words"
-           enterkeyhint="search" spellcheck="false" placeholder="Exemplo: Maria">
+           enterkeyhint="search" spellcheck="false" placeholder="Seu primeiro nome" aria-describedby="exemplo-nome">
     <p class="erro" id="erro-nome" role="alert" hidden></p>
     <button type="submit" class="botao">Continuar</button>
   </form>
