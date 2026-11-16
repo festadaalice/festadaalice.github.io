@@ -12,6 +12,11 @@ window.FESTA = {
   endereco: 'Rua Vinícius de Morais, 15, Luxemburgo',
   enderecoMapa: 'Rua Vinícius de Morais, 15, Luxemburgo, Belo Horizonte, MG',
   contato: 'o Felipe ou a Teresa',
+  // Botões de WhatsApp para quem se enrolar (número com 55 + DDD, só dígitos)
+  whatsapp: [
+    { nome: 'Felipe', numero: '5531998760109' },
+    { nome: 'Teresa', numero: '5564992155118' }
+  ],
 
   // Mapa do Google dentro do convite (a prévia no app do Claude não consegue mostrar, então desliga lá)
   mapaNaPagina: true

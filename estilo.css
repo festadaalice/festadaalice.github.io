@@ -224,6 +224,9 @@ h1, h2, p, ul { margin: 0; }
 }
 .detalhe-texto { font-size: 1.22rem; font-weight: 700; }
 
+.contatos { display: flex; flex-direction: column; gap: 12px; width: 100%; text-align: left; }
+.contatos-titulo { font-size: 1.1rem; font-weight: 700; margin-top: 18px; }
+
 .mapa {
   border: 5px solid var(--branco);
   border-radius: 18px;

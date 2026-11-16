@@ -87,6 +87,30 @@
     });
   }
 
+  /* ---------- WhatsApp ---------- */
+
+  function preencherContatos() {
+    var lista = F.whatsapp || [];
+    var icone = '<svg viewBox="0 0 24 24"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z" ' +
+      'fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>' +
+      '<path d="M9 8.5c.3 2.9 2.6 5.3 5.5 5.9l1-1.4-1.9-.9-.7.8c-1-.5-1.8-1.3-2.3-2.3l.8-.7-.9-1.9z" fill="currentColor"/></svg>';
+    Array.prototype.forEach.call(document.querySelectorAll('[data-contatos]'), function (caixa) {
+      lista.forEach(function (c) {
+        var a = document.createElement('a');
+        a.className = 'acao';
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.href = 'https://wa.me/' + c.numero + '?text=' +
+          encodeURIComponent('Oi, ' + c.nome + '! É sobre a festa da Alice.');
+        a.innerHTML = '<span class="acao-icone" aria-hidden="true">' + icone + '</span>' +
+          '<span class="acao-texto"><strong></strong><span>Mandar mensagem no WhatsApp</span></span>';
+        a.querySelector('strong').textContent = c.nome;
+        caixa.appendChild(a);
+      });
+      if (!lista.length) caixa.hidden = true;
+    });
+  }
+
   /* ---------- Conversa com a planilha ---------- */
 
   var simulado = null;
@@ -392,7 +416,7 @@
         nomeDigitado = nome;
         if (r.grupos.length === 0) {
           $('texto-nao-achou').textContent = 'Confira se “' + nome + '” é o seu primeiro nome, do jeito que está no documento, ' +
-            'sem apelido, e tente de novo. Se ainda assim não encontrar, fale com ' + F.contato + '.';
+            'sem apelido, e tente de novo.';
           return irPara('nao-achou');
         }
         if (r.grupos.length === 1) return abrirGrupo(r.grupos[0]);
@@ -596,6 +620,7 @@
 
   preencherDatas();
   preencherLinks();
+  preencherContatos();
   atualizarStatus();
   ajustarRodape();
   sincronizar();
