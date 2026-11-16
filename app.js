@@ -278,6 +278,7 @@
     observador = new IntersectionObserver(function (itens) {
       var visivel = itens[itens.length - 1].intersectionRatio >= 0.6;
       barra.classList.toggle('visivel', !visivel);
+      posicionarBalao();
       $('barra-botao').tabIndex = visivel ? -1 : 0;
       barra.setAttribute('aria-hidden', visivel ? 'true' : 'false');
     }, { threshold: [0, 0.6, 1] });
@@ -287,6 +288,35 @@
   // O fim do convite não pode ficar escondido atrás da barra (que cresce com letra grande)
   function ajustarRodape() {
     $('convite').style.paddingBottom = ($('barra').offsetHeight + 36) + 'px';
+    posicionarBalao();
+  }
+
+  // O balão aparece junto com a barra (o link "Dúvidas?" embaixo do botão grande saiu da tela),
+  // fica logo acima dela e some quando os botões de WhatsApp estão na tela.
+  var duvidasNaTela = false;
+  function posicionarBalao() {
+    var barra = $('barra');
+    var barraVisivel = barra.classList.contains('visivel');
+    document.documentElement.style.setProperty('--sobe', (barraVisivel ? barra.offsetHeight : 0) + 'px');
+    $('balao').classList.toggle('escondido', !barraVisivel || duvidasNaTela);
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-duvidas]'), function (link) {
+    link.addEventListener('click', function (ev) {
+      ev.preventDefault();   // sem "#duvidas" no endereço: o voltar do celular continua igual
+      var secao = $('duvidas');
+      secao.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      try { secao.focus({ preventScroll: true }); } catch (e) { /* navegador antigo */ }
+      secao.classList.remove('destaque');
+      void secao.offsetWidth;
+      secao.classList.add('destaque');
+    });
+  });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (itens) {
+      duvidasNaTela = itens[itens.length - 1].isIntersecting;
+      posicionarBalao();
+    }, { threshold: 0.3 }).observe($('duvidas'));
   }
   window.addEventListener('resize', ajustarRodape);
   if ('ResizeObserver' in window) new ResizeObserver(ajustarRodape).observe($('barra'));
