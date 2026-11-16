@@ -301,17 +301,31 @@
     $('balao').classList.toggle('escondido', !barraVisivel || duvidasNaTela);
   }
 
+  // Janela de dúvidas: os dois botões de WhatsApp por cima de qualquer tela
+  var focoAntes = null;
+  function abrirAjuda() {
+    focoAntes = document.activeElement;
+    $('ajuda').hidden = false;
+    document.documentElement.classList.add('com-ajuda');
+    var primeiro = $('ajuda').querySelector('.contatos a');
+    if (primeiro) primeiro.focus();
+  }
+  function fecharAjuda() {
+    if ($('ajuda').hidden) return;
+    $('ajuda').hidden = true;
+    document.documentElement.classList.remove('com-ajuda');
+    if (focoAntes && focoAntes.focus) { try { focoAntes.focus({ preventScroll: true }); } catch (e) { /* navegador antigo */ } }
+  }
   Array.prototype.forEach.call(document.querySelectorAll('[data-duvidas]'), function (link) {
     link.addEventListener('click', function (ev) {
       ev.preventDefault();   // sem "#duvidas" no endereço: o voltar do celular continua igual
-      var secao = $('duvidas');
-      secao.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      try { secao.focus({ preventScroll: true }); } catch (e) { /* navegador antigo */ }
-      secao.classList.remove('destaque');
-      void secao.offsetWidth;
-      secao.classList.add('destaque');
+      abrirAjuda();
     });
   });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-fechar-ajuda]'), function (el) {
+    el.addEventListener('click', fecharAjuda);
+  });
+  document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape') fecharAjuda(); });
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (itens) {
       duvidasNaTela = itens[itens.length - 1].isIntersecting;
@@ -405,6 +419,7 @@
   }
 
   window.addEventListener('popstate', function () {
+    fecharAjuda();
     navegando = false;
     if ($('fluxo').hidden) return;
     noHistorico = false;

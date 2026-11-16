@@ -134,6 +134,10 @@
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Voltar
     </button>
+    <button type="button" class="balao-topo" data-duvidas>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c.3 2.9 2.6 5.3 5.5 5.9l1-1.4-1.9-.9-.7.8c-1-.5-1.8-1.3-2.3-2.3l.8-.7-.9-1.9z" fill="currentColor"/></svg>
+      Dúvidas?
+    </button>
   </header>
 
   <!-- Nome -->
@@ -227,6 +231,17 @@
     </a>
 
     <button type="button" class="botao" data-acao="fechar">Voltar para o convite</button>
+  </div>
+</div>
+
+<!-- ===================== Dúvidas (abre por cima de qualquer tela) ===================== -->
+<div id="ajuda" class="ajuda" role="dialog" aria-modal="true" aria-labelledby="ajuda-titulo" hidden>
+  <div class="ajuda-fundo" data-fechar-ajuda></div>
+  <div class="ajuda-caixa">
+    <h2 id="ajuda-titulo">Dúvidas?</h2>
+    <p class="detalhe-texto">Fale com a gente pelo WhatsApp:</p>
+    <div class="contatos" data-contatos></div>
+    <button type="button" class="botao secundario" data-fechar-ajuda>Fechar</button>
   </div>
 </div>
 

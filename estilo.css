@@ -306,13 +306,55 @@ h1, h2, p, ul { margin: 0; }
 }
 .duvidas-link:focus-visible { outline: 4px solid var(--ameixa); outline-offset: 3px; }
 
-#duvidas { scroll-margin-top: 16px; border-radius: 18px; }
 #duvidas:focus { outline: none; }
-#duvidas.destaque { animation: destacar 1.8s ease-out; }
-@keyframes destacar {
-  0%, 40% { box-shadow: 0 0 0 10px var(--rosa-claro); background: var(--rosa-claro); }
-  100% { box-shadow: 0 0 0 10px transparent; background: transparent; }
+
+/* Dúvidas no topo das telas da confirmação */
+.balao-topo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 48px;
+  padding: 6px 16px 6px 12px;
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--branco);
+  background: var(--verde);
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
 }
+.balao-topo svg { width: 24px; height: 24px; }
+.balao-topo:focus-visible { outline: 4px solid var(--ameixa); outline-offset: 3px; }
+
+/* Janela de dúvidas */
+.ajuda { position: fixed; inset: 0; z-index: 20; display: flex; align-items: flex-end; justify-content: center; }
+.ajuda[hidden] { display: none; }
+.ajuda-fundo { position: absolute; inset: 0; background: rgba(63, 26, 48, 0.45); }
+.ajuda-caixa {
+  position: relative;
+  width: 100%;
+  max-width: var(--largura);
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px var(--lado-d) calc(20px + env(safe-area-inset-bottom, 0px)) var(--lado);
+  background: var(--papel);
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -10px 30px rgba(63, 26, 48, 0.25);
+  animation: subir 0.25s ease-out;
+}
+.ajuda-caixa h2 {
+  font-family: "Great Vibes", cursive;
+  font-weight: 400;
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--rosa);
+}
+@keyframes subir { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+html.com-ajuda, html.com-ajuda body { overflow: hidden; }
 .barra .botao { max-width: calc(var(--largura) - 36px); margin: 0 auto; }
 
 /* ===================== Confirmação ===================== */
@@ -332,6 +374,9 @@ h1, h2, p, ul { margin: 0; }
   z-index: 4;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;   /* com letra muito grande, o "Dúvidas?" desce para a linha de baixo */
+  gap: 8px 10px;
   padding-top: calc(10px + env(safe-area-inset-top, 0px));
   padding-bottom: 10px;
   background: var(--papel);
@@ -522,5 +567,5 @@ input[type="text"]:focus { outline: none; border-color: var(--rosa-forte); box-s
   .tela.entrando { animation: none; }
   .barra { transition: none; }
   .balao { transition: none; }
-  #duvidas.destaque { animation: none; }
+  .ajuda-caixa { animation: none; }
 }
