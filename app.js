@@ -291,14 +291,19 @@
     posicionarBalao();
   }
 
-  // O balão aparece junto com a barra (o link "Dúvidas?" embaixo do botão grande saiu da tela),
-  // fica logo acima dela e some quando os botões de WhatsApp estão na tela.
+  // Nas telas da confirmação o balão fica sempre no canto. No convite ele aparece junto com a barra
+  // (o link "Dúvidas?" embaixo do botão grande saiu da tela), fica logo acima dela e some quando
+  // os botões de WhatsApp estão na tela.
   var duvidasNaTela = false;
   function posicionarBalao() {
+    var noFluxo = !$('fluxo').hidden;
     var barra = $('barra');
-    var barraVisivel = barra.classList.contains('visivel');
+    var barraVisivel = !noFluxo && barra.classList.contains('visivel');
     document.documentElement.style.setProperty('--sobe', (barraVisivel ? barra.offsetHeight : 0) + 'px');
-    $('balao').classList.toggle('escondido', !barraVisivel || duvidasNaTela);
+    $('balao').classList.toggle('escondido', !noFluxo && (!barraVisivel || duvidasNaTela));
+  }
+  if ('MutationObserver' in window) {
+    new MutationObserver(posicionarBalao).observe($('fluxo'), { attributes: true, attributeFilter: ['hidden'] });
   }
 
   // Janela de dúvidas: os dois botões de WhatsApp por cima de qualquer tela

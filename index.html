@@ -23,7 +23,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Nunito:ital,wght@0,400;0,700;0,800;1,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="estilo.css">
+  <!-- ?v=: mude a cada publicação que altere estes arquivos, senão o celular mistura página nova com estilo velho -->
+  <link rel="stylesheet" href="estilo.css?v=20261116c">
 </head>
 <body>
 
@@ -115,12 +116,6 @@
     <p class="assinatura">Com carinho, Felipe, Teresa e Alice</p>
   </footer>
 
-  <!-- Balão fixo: leva até os botões de WhatsApp; aparece junto com a barra e some quando os botões estão na tela -->
-  <a class="balao escondido" id="balao" href="#duvidas" data-duvidas>
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c.3 2.9 2.6 5.3 5.5 5.9l1-1.4-1.9-.9-.7.8c-1-.5-1.8-1.3-2.3-2.3l.8-.7-.9-1.9z" fill="currentColor"/></svg>
-    <span>Dúvidas?</span>
-  </a>
-
   <!-- Barra fixa: aparece quando o botão grande sai da tela -->
   <div class="barra" id="barra" aria-hidden="true">
     <button type="button" class="botao" id="barra-botao" tabindex="-1" data-acao="confirmar">Confirmar presença</button>
@@ -133,10 +128,6 @@
     <button type="button" class="voltar" data-acao="voltar">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Voltar
-    </button>
-    <button type="button" class="balao-topo" data-duvidas>
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c.3 2.9 2.6 5.3 5.5 5.9l1-1.4-1.9-.9-.7.8c-1-.5-1.8-1.3-2.3-2.3l.8-.7-.9-1.9z" fill="currentColor"/></svg>
-      Dúvidas?
     </button>
   </header>
 
@@ -235,6 +226,12 @@
 </div>
 
 <!-- ===================== Dúvidas (abre por cima de qualquer tela) ===================== -->
+<!-- Balão fixo em todas as telas. No convite aparece junto com a barra e some quando os botões de WhatsApp estão na tela. -->
+<a class="balao escondido" id="balao" href="#duvidas" data-duvidas>
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c.3 2.9 2.6 5.3 5.5 5.9l1-1.4-1.9-.9-.7.8c-1-.5-1.8-1.3-2.3-2.3l.8-.7-.9-1.9z" fill="currentColor"/></svg>
+  <span>Dúvidas?</span>
+</a>
+
 <div id="ajuda" class="ajuda" role="dialog" aria-modal="true" aria-labelledby="ajuda-titulo" hidden>
   <div class="ajuda-fundo" data-fechar-ajuda></div>
   <div class="ajuda-caixa">
@@ -245,7 +242,7 @@
   </div>
 </div>
 
-<script src="config.js"></script>
-<script src="app.js"></script>
+<script src="config.js?v=20261116c"></script>
+<script src="app.js?v=20261116c"></script>
 </body>
 </html>

@@ -308,25 +308,6 @@ h1, h2, p, ul { margin: 0; }
 
 #duvidas:focus { outline: none; }
 
-/* Dúvidas no topo das telas da confirmação */
-.balao-topo {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 48px;
-  padding: 6px 16px 6px 12px;
-  font: inherit;
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: var(--branco);
-  background: var(--verde);
-  border: 0;
-  border-radius: 999px;
-  cursor: pointer;
-}
-.balao-topo svg { width: 24px; height: 24px; }
-.balao-topo:focus-visible { outline: 4px solid var(--ameixa); outline-offset: 3px; }
-
 /* Janela de dúvidas */
 .ajuda { position: fixed; inset: 0; z-index: 20; display: flex; align-items: flex-end; justify-content: center; }
 .ajuda[hidden] { display: none; }
@@ -365,7 +346,7 @@ html.com-ajuda, html.com-ajuda body { overflow: hidden; }
   margin: 0 auto;
   padding-left: var(--lado);
   padding-right: var(--lado-d);
-  padding-block: 0 40px;
+  padding-block: 0 110px;   /* o fim de cada tela sobe acima do balão "Dúvidas?" */
 }
 
 .fluxo-topo {
@@ -374,9 +355,6 @@ html.com-ajuda, html.com-ajuda body { overflow: hidden; }
   z-index: 4;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;   /* com letra muito grande, o "Dúvidas?" desce para a linha de baixo */
-  gap: 8px 10px;
   padding-top: calc(10px + env(safe-area-inset-top, 0px));
   padding-bottom: 10px;
   background: var(--papel);
