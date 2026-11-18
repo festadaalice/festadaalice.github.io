@@ -9,7 +9,7 @@ window.FESTA = {
   prazoConfirmacao: '2026-12-11',             // último dia para confirmar (sexta-feira)
 
   titulo: '1º aninho da Alice',
-  endereco: 'Rua Vinícius de Morais, 15, Luxemburgo',
+  endereco: 'Rua Vinícius de Morais, 15, Luxemburgo, Belo\u00A0Horizonte',   // \u00A0: "Belo Horizonte" não quebra entre linhas
   enderecoMapa: 'Rua Vinícius de Morais, 15, Luxemburgo, Belo Horizonte, MG',
   contato: 'o Felipe ou a Teresa',
   // Botões de WhatsApp para quem se enrolar (número com 55 + DDD, só dígitos)
