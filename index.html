@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Nunito:ital,wght@0,400;0,700;0,800;1,600&display=swap" rel="stylesheet">
   <!-- ?v=: mude a cada publicação que altere estes arquivos, senão o celular mistura página nova com estilo velho -->
-  <link rel="stylesheet" href="estilo.css?v=20261118b">
+  <link rel="stylesheet" href="estilo.css?v=20261118c">
 </head>
 <body>
 
@@ -50,6 +50,7 @@
     <p class="respondido-titulo">Sua resposta</p>
     <p class="respondido-grupo" id="respondido-grupo"></p>
     <ul class="lista-respostas" id="respondido-lista"></ul>
+    <p class="respondido-pendente" id="respondido-pendente"></p>
     <p class="respondido-data" id="respondido-data"></p>
     <button type="button" class="botao" data-acao="editar" id="botao-editar">Editar resposta</button>
     <button type="button" class="botao-texto" data-acao="confirmar">Responder por outra família</button>
@@ -182,7 +183,7 @@
   <form id="tela-quem" class="tela" novalidate hidden>
     <h2 class="tela-pergunta" tabindex="-1">Quem vai à festa?</h2>
     <p class="grupo-titulo" id="grupo-titulo"></p>
-    <p class="tela-dica">Toque em “Vai” ou “Não vai” para cada pessoa.</p>
+    <p class="tela-dica">Toque em “Vai” ou “Não vai” para cada pessoa. Quem ainda não sabe pode ficar em branco e responder depois.</p>
     <div id="pessoas" class="pessoas"></div>
     <p class="erro" id="erro-envio" role="alert" hidden></p>
     <button type="submit" class="botao">Confirmar resposta</button>
@@ -242,7 +243,7 @@
   </div>
 </div>
 
-<script src="config.js?v=20261118b"></script>
-<script src="app.js?v=20261118b"></script>
+<script src="config.js?v=20261118c"></script>
+<script src="app.js?v=20261118c"></script>
 </body>
 </html>

@@ -14,6 +14,7 @@
   --vermelho: #B3261E;
   --borda: #D9B8C7;
   --dourado: #C9973E;
+  --ainda: #8A5A12;         /* "ainda não respondeu" (confirmação parcial): âmbar escuro */
   --raio: 16px;
   --largura: 480px;
   --lado: max(18px, env(safe-area-inset-left, 0px));
@@ -169,6 +170,8 @@ h1, h2, p, ul { margin: 0; }
 }
 .respondido-grupo { font-size: 1.25rem; font-weight: 800; text-align: center; }
 .respondido-data { font-size: 0.95rem; color: var(--ameixa-suave); text-align: center; }
+.respondido-pendente { font-size: 1.05rem; font-weight: 700; text-align: center; }
+.respondido-pendente:empty { display: none; }
 .respondido .botao-texto { align-self: center; }
 
 .lista-respostas {
@@ -200,6 +203,7 @@ h1, h2, p, ul { margin: 0; }
 .marca svg { width: 16px; height: 16px; }
 .marca.vai { background: var(--verde); }
 .marca.nao { background: var(--cinza-nao); }
+.marca.ainda { background: var(--ainda); }
 
 /* Relógio */
 .relogio {

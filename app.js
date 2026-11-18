@@ -228,19 +228,27 @@
   var ICONE_VAI = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 12.5l4 4 9-9.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   var ICONE_NAO = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>';
 
+  var ICONE_AINDA = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.8 9a3.3 3.3 0 1 1 4.6 3c-.9.4-1.4 1.1-1.4 2v.6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="12" cy="19" r="1.8" fill="currentColor"/></svg>';
+
+  // Confirmação parcial: quem a família deixou em branco vem com resposta vazia
+  function pendentes(respostas) {
+    return respostas.filter(function (r) { return !r.resposta; }).map(function (r) { return r.nome; });
+  }
+
   function preencherLista(ul, respostas) {
     ul.innerHTML = '';
     respostas.forEach(function (r) {
-      var vai = r.resposta === VAI;
+      var tipo = r.resposta === VAI ? 'vai' : r.resposta === NAO_VAI ? 'nao' : 'ainda';
       var li = document.createElement('li');
       var marca = document.createElement('span');
-      marca.className = 'marca ' + (vai ? 'vai' : 'nao');
-      marca.innerHTML = vai ? ICONE_VAI : ICONE_NAO;
+      marca.className = 'marca ' + tipo;
+      marca.innerHTML = tipo === 'vai' ? ICONE_VAI : tipo === 'ainda' ? ICONE_AINDA : ICONE_NAO;
       var texto = document.createElement('span');
       var b = document.createElement('strong');
       b.textContent = r.nome;
       texto.appendChild(b);
-      texto.appendChild(document.createTextNode(vai ? ' vai' : ' não vai'));
+      texto.appendChild(document.createTextNode(
+        tipo === 'vai' ? ' vai' : tipo === 'ainda' ? ' ainda não respondeu' : ' não vai'));
       li.appendChild(marca);
       li.appendChild(texto);
       ul.appendChild(li);
@@ -260,6 +268,7 @@
       $('respondido-data').textContent = salvo.em
         ? 'Enviada deste celular em ' + formatar(new Date(salvo.em), { day: 'numeric', month: 'long' }) + '.'
         : '';
+      $('respondido-pendente').textContent = textoPendentes(salvo.respostas, true);
       barraBotao.textContent = 'Editar resposta';
       barraBotao.dataset.acao = 'editar';
     } else {
@@ -523,8 +532,9 @@
         inp.value = o[0];
         if (m.resposta === o[0]) inp.checked = true;
         inp.addEventListener('change', function () {
-          fs.classList.remove('faltando');
-          if (!document.querySelector('.pessoa.faltando')) erro('erro-envio', '');
+          // basta uma pessoa marcada para poder enviar: tira o aviso de todos
+          Array.prototype.forEach.call(document.querySelectorAll('.pessoa.faltando'), function (p) { p.classList.remove('faltando'); });
+          erro('erro-envio', '');
         });
         var sp = document.createElement('span');
         sp.textContent = o[1];
@@ -542,19 +552,25 @@
     ev.preventDefault();
     if (!grupoAtual) return;
     var botao = ev.currentTarget.querySelector('button[type="submit"]');
-    var respostas = [];
-    var faltam = [];
+    // Confirmação parcial: vai só quem foi marcado; quem ficou em branco responde depois.
+    // Quem já tinha resposta e não foi mexido não é reenviado: assim este celular não desfaz
+    // o que outra pessoa da família mudou em outro celular depois que esta tela abriu.
+    var marcados = [];
+    var mudados = [];
     grupoAtual.membros.forEach(function (m, i) {
       var marcado = document.querySelector('input[name="pessoa-' + i + '"]:checked');
-      var fs = document.querySelector('.pessoa[data-indice="' + i + '"]');
-      fs.classList.toggle('faltando', !marcado);
-      if (!marcado) faltam.push(m.nome);
-      else respostas.push({ linha: m.linha, nome: m.nome, resposta: marcado.value });
+      if (!marcado) return;
+      var r = { linha: m.linha, nome: m.nome, resposta: marcado.value };
+      marcados.push(r);
+      if (marcado.value !== m.resposta) mudados.push(r);
     });
-    if (faltam.length) {
-      erro('erro-envio', 'Falta escolher “Vai” ou “Não vai” para ' + juntarNomes(faltam) + '. ' +
-        (faltam.length > 1 ? 'Os nomes estão marcados' : 'O nome está marcado') + ' em vermelho acima.');
-      document.querySelector('.pessoa.faltando').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Nada mudou (só tocou em Confirmar de novo): reenvia o que está marcado
+    var respostas = mudados.length ? mudados : marcados;
+    var ninguem = marcados.length === 0;
+    Array.prototype.forEach.call(document.querySelectorAll('.pessoa'), function (fs) { fs.classList.toggle('faltando', ninguem); });
+    if (ninguem) {
+      erro('erro-envio', 'Escolha “Vai” ou “Não vai” para pelo menos uma pessoa. Quem ainda não sabe pode ficar em branco e responder depois.');
+      document.querySelector('.pessoa').scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
     erro('erro-envio', '');
@@ -595,11 +611,22 @@
     $('pronto-grupo').textContent = r.grupo;
     preencherLista($('pronto-lista'), r.respostas);
     var algumVai = r.respostas.some(function (x) { return x.resposta === VAI; });
-    $('pronto-recado').textContent = algumVai
+    var todosNao = r.respostas.every(function (x) { return x.resposta === NAO_VAI; });
+    var recado = algumVai
       ? 'Esperamos vocês no dia ' + formatar(inicio, { day: 'numeric', month: 'long' }) + '!'
-      : 'Que pena! Vamos sentir saudade.';
+      : todosNao ? 'Que pena! Vamos sentir saudade.' : '';
+    var pend = textoPendentes(r.respostas);
+    $('pronto-recado').textContent = recado + (recado && pend ? ' ' : '') + pend;
     grupoAtual = null;
     trocarAtual('pronto');
+  }
+
+  // noConvite: a pessoa já está no convite, com o "Editar resposta" logo abaixo
+  function textoPendentes(respostas, noConvite) {
+    var nomes = pendentes(respostas);
+    if (!nomes.length) return '';
+    return 'Quando ' + juntarNomes(nomes) + ' souber' + (nomes.length > 1 ? 'em' : '') +
+      (noConvite ? ', toque em “Editar resposta” aqui embaixo.' : ', abra este convite de novo e toque em “Editar resposta”.');
   }
 
   /* ---------- Editar resposta ---------- */
@@ -643,8 +670,11 @@
     chamar('GET', { acao: 'buscar', nome: salvo.nome }).then(function (r) {
       var g = r.ok ? acharGrupo(r.grupos, salvo.grupo) : null;
       if (!g) return;
-      var respostas = g.membros.filter(function (m) { return m.resposta; })
-        .map(function (m) { return { nome: m.nome, resposta: m.resposta }; });
+      // Família com alguma resposta: mostra todos, quem está em branco aparece como "ainda não respondeu"
+      var algum = g.membros.some(function (m) { return m.resposta; });
+      var respostas = algum
+        ? g.membros.map(function (m) { return { nome: m.nome, resposta: m.resposta || '' }; })
+        : [];
       if (respostas.length === 0) {
         try { localStorage.removeItem(CHAVE); } catch (e) { /* nada */ }
       } else {
