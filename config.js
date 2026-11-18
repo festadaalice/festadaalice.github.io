@@ -6,7 +6,7 @@ window.FESTA = {
 
   inicio: '2027-01-09T12:00:00-03:00',
   fim: '2027-01-09T13:00:00-03:00',         // só para a agenda: evento de 1 hora como lembrete (a festa não tem horário de término)
-  prazoConfirmacao: '2026-12-04',             // último dia para confirmar (sexta-feira)
+  prazoConfirmacao: '2026-12-11',             // último dia para confirmar (sexta-feira)
 
   titulo: '1º aninho da Alice',
   endereco: 'Rua Vinícius de Morais, 15, Luxemburgo',
